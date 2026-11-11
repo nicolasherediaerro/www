@@ -1,26 +1,456 @@
-@import "tailwindcss";
+/* Sin preflight de Tailwind: el diseño depende de los estilos por defecto del navegador. */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-serif: var(--font-instrument), Georgia, serif;
+  --font-heading: var(--font-instrument), Georgia, serif;
+
+  /* Forge */
+  --color-brand: #2f5bea;
+  --color-brand-soft: #eaf1fe;
+  --color-tray: #efeeea;
+  --color-ink: #14171c;
+  --color-soft: #7b828c;
+  --color-faint: #9aa1ab;
+  --color-line: #e0e2e6;
+  --color-footer: #16329a;
+
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --background: #fafafa;
+  --foreground: #1b1d21;
+  --card: #ffffff;
+  --card-foreground: #1b1d21;
+  --popover: #ffffff;
+  --popover-foreground: #1b1d21;
+  --primary: #1b1d21;
+  --primary-foreground: #ffffff;
+  --secondary: #efeeea;
+  --secondary-foreground: #1b1d21;
+  --muted: #f4f4f1;
+  --muted-foreground: #6b7280;
+  --accent: #efeeea;
+  --accent-foreground: #1b1d21;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: #e6e8eb;
+  --input: #e1e3e6;
+  --ring: #2f5bea;
+  --chart-1: #a9bcfb;
+  --chart-2: #4766ee;
+  --chart-3: #2f5bea;
+  --chart-4: #1d3fc4;
+  --chart-5: #0e1a4f;
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+/* ───────── Base (equivale a los estilos globales del diseño) ───────── */
+html,
+body {
+  margin: 0;
+  background: #16329a;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  color: #14171c;
+  font-family: var(--font-geist-sans), "Geist", system-ui, sans-serif;
+}
+summary::-webkit-details-marker {
+  display: none;
+}
+img {
+  max-width: none;
+}
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto !important;
+    transition: none !important;
+    animation: none !important;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ───────── Navbar ───────── */
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(250, 250, 250, 0.9);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid transparent;
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.site-nav__bar {
+  box-sizing: border-box;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 14px 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.site-nav__bar > a svg {
+  width: 40px;
+  height: 40px;
+  transition: width 0.2s ease, height 0.2s ease;
+}
+.site-nav__bar > a span {
+  font-size: 26px !important;
+  transition: font-size 0.2s ease;
+}
+.site-nav nav a,
+.site-nav summary {
+  border-radius: 8px;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+.site-nav nav a:hover,
+.site-nav summary:hover {
+  color: #2f5bea !important;
+  background: rgba(47, 91, 234, 0.06);
+}
+.site-nav__desktop a[style*="background:#1b1d21"] {
+  transition: background-color 0.15s ease;
+}
+.site-nav__desktop a[style*="background:#1b1d21"]:hover {
+  background: #000 !important;
+}
+.site-nav__desktop {
+  display: contents;
+}
+.site-nav__toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.site-nav__toggle:hover {
+  background: rgba(20, 23, 28, 0.05);
+}
+.site-nav[data-scrolled="true"] {
+  background: rgba(255, 255, 255, 0.92);
+  border-bottom-color: #e6e8eb;
+  box-shadow: 0 10px 30px -24px rgba(20, 23, 28, 0.6);
+}
+.site-nav[data-scrolled="true"] .site-nav__bar {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+.site-nav[data-scrolled="true"] .site-nav__bar > a svg {
+  width: 32px;
+  height: 32px;
+}
+.site-nav[data-scrolled="true"] .site-nav__bar > a span {
+  font-size: 22px !important;
+}
+.site-nav__panel {
+  box-sizing: border-box;
+  position: absolute;
+  top: 100%;
+  left: 12px;
+  right: 12px;
+  margin-top: 8px;
+  padding: 8px 20px 20px;
+  background: #fff;
+  border: 1px solid #e6e8eb;
+  border-radius: 18px;
+  box-shadow: 0 24px 48px -24px rgba(20, 23, 28, 0.35);
+}
+
+/* ───────── Responsive: menos padding horizontal en pantallas medianas ───────── */
+@media (max-width: 1100px) {
+  .site-nav__bar,
+  .site-nav[data-scrolled="true"] .site-nav__bar {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+  [style*="padding:0 64px"],
+  [style*="padding:72px 64px"],
+  [style*="padding:24px 64px"],
+  [style*="padding:40px 64px"],
+  [style*="padding:56px 64px"],
+  [style*="padding:84px 64px"],
+  [style*="padding:48px 64px"],
+  [style*="padding:64px"] {
+    padding-left: 32px !important;
+    padding-right: 32px !important;
+  }
+  [style*="margin:0 64px"] {
+    margin-left: 32px !important;
+    margin-right: 32px !important;
+  }
+}
+
+/* Bentos: en tablet pasan a dos columnas parejas. En el móvil (≤ 700px) quedan en una. */
+@media (max-width: 1100px) {
+  .bento {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-auto-rows: auto !important;
+  }
+  .bento > [style*="grid-column"] {
+    grid-column: auto !important;
+    grid-row: auto !important;
+    min-width: 0;
+  }
+}
+
+/* ───────── Responsive (≤ 860px): reglas del diseño móvil ───────── */
+.arq-step {
+  flex-basis: auto;
+}
+@media (max-width: 860px) {
+  .arq-step {
+    flex-basis: 45% !important;
+  }
+  .arq-grid {
+    display: block !important;
+  }
+  .arq-col {
+    display: none !important;
+  }
+  .arq-mob {
+    display: block !important;
+  }
+
+  .site-nav__desktop {
+    display: none;
+  }
+  .site-nav__toggle {
+    display: inline-flex;
+  }
+  .site-nav__bar,
+  .site-nav[data-scrolled="true"] .site-nav__bar {
+    padding: 10px 20px;
+  }
+  .site-nav__bar > a svg,
+  .site-nav[data-scrolled="true"] .site-nav__bar > a svg {
+    width: 34px;
+    height: 34px;
+  }
+
+  [style*="padding:0 64px"],
+  [style*="padding:72px 64px"],
+  [style*="padding:24px 64px"],
+  [style*="padding:40px 64px"],
+  [style*="padding:56px 64px"],
+  [style*="padding:84px 64px"],
+  [style*="padding:48px 64px"],
+  [style*="padding:64px"] {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  [style*="margin:0 64px"] {
+    margin-left: 20px !important;
+    margin-right: 20px !important;
+  }
+  [style*="gap:24px 64px"],
+  [style*="gap:32px 64px"],
+  [style*="gap:48px 64px"] {
+    column-gap: 24px !important;
+  }
+  [style*="grid-template-columns"]:not(.bento) {
+    grid-template-columns: 1fr !important;
+  }
+  h1 {
+    font-size: 46px !important;
+  }
+  h2 {
+    font-size: 34px !important;
+  }
+  [style*="flex:1 "],
+  [style*="flex:1."],
+  [style*="flex:2 "] {
+    flex: 1 1 100% !important;
+  }
+  [style*="flex:1"],
+  [style*="flex:2"],
+  input,
+  textarea,
+  select {
+    min-width: 0 !important;
+  }
+  input,
+  textarea,
+  select {
+    max-width: 100%;
+  }
+  [style*="padding:56px"],
+  [style*="padding:64px"] {
+    padding: 28px 20px !important;
+  }
+  [style*="padding:40px 48px"],
+  [style*="padding:36px 32px"],
+  [style*="padding:48px 56px"],
+  [style*="padding:48px 40px"],
+  [style*="padding:44px 40px"],
+  [style*="padding:26px 28px"],
+  [style*="padding:32px;"],
+  [style$="padding:32px"],
+  [style*="padding:48px;"],
+  [style$="padding:48px"],
+  [style*="padding:28px;"],
+  [style$="padding:28px"],
+  [style*="padding:40px 32px"],
+  [style*="padding:36px 28px"] {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  [style*="margin-left:28px"],
+  [style*="margin-left:56px"] {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  [style*="gap:52px 36px"] {
+    gap: 32px !important;
+  }
+  [style*="font-size:60px"] {
+    font-size: 42px !important;
+  }
+  [style*="width:640px"],
+  [style*="width:620px"],
+  [style*="width:460px"],
+  [style*="width:300px"]:not([style*="position:absolute"]) {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .bento-stack {
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-auto-rows: auto !important;
+  }
+  .bento-stack > * {
+    grid-column: auto !important;
+    grid-row: auto !important;
+    min-width: 0;
+  }
+}
+
+/* La sección anclada queda debajo de la navbar. */
+h2[id] {
+  scroll-margin-top: 104px;
+}
+/* La columna completa se fija: el nav interno es más bajo que el artículo,
+   así que un sticky ahí no tiene recorrido. */
+.side-nav {
+  position: sticky;
+  top: 88px;
+  align-self: flex-start;
+  z-index: 2;
+}
+.scroll-spy .scroll-spy {
+  margin-top: 28px;
+}
+/* En una columna el menú va arriba del texto; fijo taparía el artículo. */
+@media (max-width: 980px) {
+  .side-nav {
+    position: static;
+  }
 }
